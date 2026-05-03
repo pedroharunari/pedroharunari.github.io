@@ -1,0 +1,96 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+---
+
+<Layout title="Miscellanea — Pedro E. Harunari">
+  <div class="page-content">
+    <div class="wrapper">
+      <p class="section-label fade-in">Everything Else</p>
+      <h1 class="page-title fade-in">Miscellanea</h1>
+
+      <div class="misc-prose fade-in">
+        <slot />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .misc-prose {
+    border: 3px solid var(--border);
+    padding: 40px 48px;
+  }
+
+  /* Bauhaus prose styles */
+  .misc-prose h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.06em;
+    margin: 40px 0 16px;
+    padding-top: 32px;
+    border-top: 2px solid var(--border);
+  }
+  .misc-prose h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+
+  .misc-prose h3 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 17px; font-weight: 700;
+    margin: 24px 0 10px;
+  }
+
+  .misc-prose p {
+    color: var(--muted);
+    font-size: 15px; line-height: 1.8;
+    margin-bottom: 16px;
+    max-width: 720px;
+  }
+
+  .misc-prose a { color: var(--blue); text-decoration: none; transition: color 0.12s; }
+  .misc-prose a:hover { color: var(--red); }
+
+  .misc-prose ul, .misc-prose ol {
+    color: var(--muted);
+    font-size: 15px; line-height: 1.8;
+    margin-bottom: 16px;
+    padding-left: 0;
+    list-style: none;
+    max-width: 720px;
+  }
+  .misc-prose li { padding-left: 18px; position: relative; margin-bottom: 6px; }
+  .misc-prose ul li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+  .misc-prose ol { counter-reset: list; }
+  .misc-prose ol li::before { content: counter(list) '.'; counter-increment: list; position: absolute; left: 0; color: var(--red); font-weight: 700; font-family: 'Space Grotesk', sans-serif; font-size: 13px; }
+
+  .misc-prose blockquote {
+    border-left: 5px solid var(--yellow);
+    padding: 14px 20px;
+    margin: 24px 0;
+    background: var(--bg);
+  }
+  .misc-prose blockquote p { color: var(--text); font-style: italic; margin: 0; }
+
+  .misc-prose strong { color: var(--text); font-weight: 600; }
+  .misc-prose em     { font-style: italic; }
+  .misc-prose code   { font-family: monospace; font-size: 13px; background: var(--bg); border: 1px solid var(--border); padding: 1px 5px; }
+  .misc-prose hr     { border: none; border-top: 2px solid var(--border); margin: 32px 0; }
+
+  .misc-side-by-side {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 36px;
+    align-items: start;
+    margin-bottom: 16px;
+  }
+  .misc-side-text p { margin-bottom: 16px; }
+  .misc-side-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (max-width: 700px) {
+    .misc-prose { padding: 28px 22px; }
+    .misc-side-by-side { grid-template-columns: 1fr; }
+  }
+</style>

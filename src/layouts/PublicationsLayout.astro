@@ -1,0 +1,173 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+const { publications = [], hindex = 0, citations = 0, scholarUrl = '#' } = frontmatter;
+
+function linkLabel(url: string): string {
+  if (url.includes('arxiv.org'))    return 'arXiv ↗';
+  if (url.includes('scipost.org'))  return 'SciPost ↗';
+  if (url.includes('journals.aps.org')) return 'APS ↗';
+  if (url.includes('nature.com'))   return 'Nature ↗';
+  return 'Link ↗';
+}
+
+function extractJournal(venue: string): string | null {
+  if (!venue || venue.toLowerCase() === 'preprint' || venue.startsWith('arXiv:')) return null;
+  let name = venue.split(' — ')[0].trim();
+  name = name.replace(/,\s*[\d.]+.*$/, '').trim();
+  return name || null;
+}
+
+const prestigeOrder = [
+  'Physical Review X',
+  'Physical Review Letters',
+  'SciPost Physics',
+  'Physical Review Research',
+  'Physical Review E',
+  'Letters in Mathematical Physics',
+  'Journal of Statistical Mechanics',
+  'Journal of Physics A',
+  'Scientific Reports',
+  'Entropy',
+];
+
+const journals: string[] = [...new Set(
+  (publications as any[]).map((p: any) => extractJournal(p.venue)).filter(Boolean)
+)].sort((a: any, b: any) => {
+  const ai = prestigeOrder.indexOf(a);
+  const bi = prestigeOrder.indexOf(b);
+  if (ai === -1 && bi === -1) return (a as string).localeCompare(b as string);
+  if (ai === -1) return 1;
+  if (bi === -1) return -1;
+  return ai - bi;
+}) as string[];
+---
+
+<Layout title="Publications — Pedro E. Harunari">
+  <div class="page-content">
+    <div class="wrapper">
+      <p class="section-label fade-in">Academic Output</p>
+      <h1 class="page-title fade-in">Publications</h1>
+
+      <div class="pub-layout fade-in">
+
+        <div class="pub-sidebar">
+          <div>
+            <div class="sidebar-label">Metrics</div>
+            <div class="sidebar-stat">
+              <span class="stat-num red">{hindex}</span>
+              <span class="sidebar-sub">h-index</span>
+            </div>
+            <div class="sidebar-stat" style="margin-top:16px">
+              <span class="stat-num blue">{citations}</span>
+              <span class="sidebar-sub">total citations</span>
+            </div>
+          </div>
+          <hr style="border:none;border-top:1px solid var(--border)" />
+          <div>
+            <div class="sidebar-label">Links</div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <a href={scholarUrl} class="sidebar-link" target="_blank" rel="noopener">Google Scholar ↗</a>
+              <a href="https://arxiv.org/search/?searchtype=author&query=Harunari%2C+P+E" class="sidebar-link" target="_blank" rel="noopener">arXiv ↗</a>
+            </div>
+          </div>
+          <hr style="border:none;border-top:1px solid var(--border)" />
+          <div>
+            <div class="sidebar-label">Journals</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              {journals.map((j: string) => <span class="tag">{j}</span>)}
+            </div>
+          </div>
+        </div>
+
+        <div class="pub-main">
+          {publications.map((p: any) => (
+            <div class="paper-item">
+              <div>
+                <div class="paper-year">
+                  {p.year}
+                  {p.annotation && <span class="badge badge-hl">{p.annotation}</span>}
+                </div>
+                <div class="paper-title">{p.title}</div>
+                <div class="paper-authors">{p.authors}</div>
+                <div class="paper-venue">{p.venue}</div>
+              </div>
+              <div class="paper-meta">
+                <a href={p.url} class="paper-link" target="_blank" rel="noopener">{linkLabel(p.url)}</a>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .pub-layout {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    border: 3px solid var(--border);
+  }
+  .pub-sidebar {
+    border-right: 3px solid var(--border);
+    padding: 28px 22px;
+    background: var(--card);
+    display: flex; flex-direction: column; gap: 22px;
+  }
+  .sidebar-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 10px;
+  }
+  .sidebar-stat { display: flex; flex-direction: column; gap: 2px; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 44px; letter-spacing: 0.04em; line-height: 1;
+  }
+  .stat-num.red  { color: var(--red); }
+  .stat-num.blue { color: var(--blue); }
+  .sidebar-sub { font-size: 12px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; }
+  .sidebar-link {
+    font-size: 12px; font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--blue); text-decoration: none; transition: color 0.12s;
+  }
+  .sidebar-link:hover { color: var(--red); }
+
+  .pub-main { padding: 28px 36px; }
+  .paper-item {
+    padding: 22px 0;
+    border-bottom: 2px solid var(--border);
+    display: grid; grid-template-columns: 1fr auto;
+    gap: 20px; align-items: start;
+  }
+  .paper-item:first-child { border-top: 2px solid var(--border); }
+  .paper-item:last-child  { border-bottom: none; }
+  .paper-year {
+    font-size: 11px; color: var(--red); font-weight: 700;
+    letter-spacing: 0.1em; margin-bottom: 5px;
+    font-family: 'Space Grotesk', sans-serif;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .paper-title { font-family: 'Space Grotesk', sans-serif; font-size: 15.5px; font-weight: 600; line-height: 1.4; margin-bottom: 6px; }
+  .paper-authors { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .paper-venue   { font-size: 12.5px; color: var(--muted); font-style: italic; }
+  .paper-meta    { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+  .paper-link {
+    font-size: 11px; color: var(--blue); text-decoration: none;
+    font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    font-family: 'Space Grotesk', sans-serif; transition: color 0.12s; white-space: nowrap;
+  }
+  .paper-link:hover { color: var(--red); }
+
+  @media (max-width: 800px) {
+    .pub-layout { grid-template-columns: 1fr; }
+    .pub-sidebar { border-right: none; border-bottom: 3px solid var(--border); flex-direction: row; flex-wrap: wrap; }
+    .pub-main    { padding: 20px; }
+    .paper-item  { grid-template-columns: 1fr; }
+  }
+</style>

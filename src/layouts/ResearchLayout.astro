@@ -1,0 +1,148 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+const { pillars = [], vision = '' } = frontmatter;
+const visionParagraphs: string[] = vision ? vision.split(/\n\n+/).map((p: string) => p.trim()).filter(Boolean) : [];
+
+// Inline SVG logos, one per pillar. All use currentColor (inherits pillar accent).
+// All icons: width="40" height="40", viewBox="0 0 48 48".
+const pillarIcons = [
+  // 1. Dissipation — damped oscillation on a time axis.
+  //    The decaying amplitude shows energy being lost over time.
+  `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="4" y1="24" x2="44" y2="24" stroke-width="0.9" stroke-dasharray="2.5 2"/>
+    <path d="M4 24 Q8 12 12 24 Q16 33 20 24 Q23 18 26 24 Q28.5 27 31 24" stroke-width="2.2"/>
+    <polyline points="41,21 44,24 41,27" stroke-width="1.8"/>
+  </svg>`,
+
+  // 2. Information Theory — Venn diagram with intersection filled.
+  //    The shaded overlap is I(X;Y), the mutual information.
+  `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="currentColor">
+    <defs>
+      <clipPath id="venn-clip">
+        <circle cx="18" cy="24" r="14"/>
+      </clipPath>
+    </defs>
+    <circle cx="18" cy="24" r="14" stroke-width="2"/>
+    <circle cx="30" cy="24" r="14" stroke-width="2"/>
+    <circle cx="30" cy="24" r="14" fill="currentColor" fill-opacity="0.22" clip-path="url(#venn-clip)"/>
+  </svg>`,
+
+  // 3. Markov Chains — directed 3-cycle.
+  //    Nodes: top(24,6), BR(42,38), BL(6,38), r=5.
+  //    Arrowheads: all computed with back=5, half-width=3 → consistent size (~5.8 units tip-to-wing).
+  `<svg width="40" height="40" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2">
+    <circle cx="24" cy="6"  r="5"/>
+    <circle cx="42" cy="38" r="5"/>
+    <circle cx="6"  cy="38" r="5"/>
+    <line x1="26.5" y1="10.4" x2="39.5" y2="33.6"/>
+    <polyline points="34.4,30.8 39.5,33.6 39.6,27.8"/>
+    <line x1="37" y1="38" x2="11" y2="38"/>
+    <polyline points="16,35 11,38 16,41"/>
+    <line x1="8.5" y1="33.6" x2="21.5" y2="10.4"/>
+    <polyline points="21.6,16.3 21.5,10.4 16.4,13.3"/>
+  </svg>`,
+];
+---
+
+<Layout title="Research — Pedro E. Harunari">
+  <div class="page-content">
+    <div class="wrapper">
+      <p class="section-label fade-in">Three Pillars</p>
+      <h1 class="page-title fade-in">Research</h1>
+
+      {visionParagraphs.map((p: string) => <p class="research-vision fade-in">{p}</p>)}
+
+      <div class="pillars fade-in">
+        {pillars.map((p: any, i: number) => (
+          <div class="pillar">
+            <div class="pillar-accent" style={`background:var(--${p.color})`}></div>
+            <span class="pillar-icon" style={`color:var(--${p.color})`} set:html={pillarIcons[i]} />
+            <h3 style={`color:var(--${p.color})`}>{p.title}</h3>
+            <p>{p.description}</p>
+            <div class="pillar-qs">
+              <p class="qs-label">Key questions</p>
+              <ul>
+                {p.questions.map((q: string) => <li>{q}</li>)}
+              </ul>
+            </div>
+            <div class="tag-row">
+              {p.tags.map((t: string) => <span class="tag">{t}</span>)}
+            </div>
+            {p.papers?.length > 0 && (
+              <div class="pillar-papers">
+                <p class="qs-label">Key papers</p>
+                <ul>
+                  {p.papers.map((ref: any) => (
+                    <li>
+                      <a href={ref.url} target="_blank" rel="noopener">{ref.label}</a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .research-vision {
+    margin-top: 20px;
+    margin-bottom: 32px;
+    max-width: 820px;
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--muted);
+  }
+
+  .pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0;
+    border: 3px solid var(--border);
+    margin-top: 12px;
+  }
+  .pillar {
+    padding: 36px 30px;
+    border-right: 3px solid var(--border);
+    position: relative;
+  }
+  .pillar:last-child { border-right: none; }
+  .pillar-accent { height: 6px; position: absolute; top: 0; left: 0; right: 0; }
+  .pillar-icon { margin-bottom: 18px; display: block; margin-top: 10px; line-height: 1; }
+  .pillar-icon svg { display: block; }
+  .pillar h3 { font-size: 19px; margin-bottom: 14px; line-height: 1.2; }
+  .pillar > p { color: var(--muted); font-size: 14px; line-height: 1.75; margin-bottom: 18px; }
+
+  .pillar-qs { margin-bottom: 18px; }
+  .qs-label {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 11px; font-weight: 700;
+    color: var(--text); letter-spacing: 0.1em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  .pillar-qs ul { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  .pillar-qs li {
+    font-size: 13.5px; color: var(--muted);
+    padding-left: 16px; position: relative; line-height: 1.5;
+  }
+  .pillar-qs li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .pillar-papers { margin-top: 20px; }
+  .pillar-papers ul { list-style: none; display: flex; flex-direction: column; gap: 5px; margin-top: 8px; }
+  .pillar-papers li { font-size: 12.5px; padding-left: 16px; position: relative; line-height: 1.4; }
+  .pillar-papers li::before { content: '—'; position: absolute; left: 0; color: var(--muted); }
+  .pillar-papers a { color: var(--muted); text-decoration: none; transition: color 0.12s; }
+  .pillar-papers a:hover { color: var(--text); }
+
+  @media (max-width: 900px) {
+    .pillars { grid-template-columns: 1fr; }
+    .pillar  { border-right: none; border-bottom: 3px solid var(--border); }
+    .pillar:last-child { border-bottom: none; }
+  }
+</style>

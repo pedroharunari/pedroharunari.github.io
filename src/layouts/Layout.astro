@@ -1,0 +1,75 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+}
+
+const { title = 'Pedro E. Harunari — Statistical Physicist' } = Astro.props;
+
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const tabs = [
+  { href: '/',               label: 'Home' },
+  { href: '/research',       label: 'Research' },
+  { href: '/publications',   label: 'Publications' },
+{ href: '/cv',             label: 'CV' },
+  { href: '/contact',        label: 'Contact' },
+  { href: '/miscellanea',    label: 'Miscellanea' },
+];
+
+function isActive(href: string) {
+  if (href === '/') return path === '/' || path === '';
+  return path === href || path.startsWith(href + '/');
+}
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+</head>
+<body>
+
+<nav>
+  <div class="nav-header">
+    <a href="/" class="nav-logo">Pedro E. <span>Harunari</span></a>
+    <span class="nav-affil">Statistical Physicist · Aix Marseille University</span>
+  </div>
+  <div class="nav-tabs">
+    {tabs.map(tab => (
+      <a href={tab.href} class={`nav-tab${isActive(tab.href) ? ' active' : ''}`}>
+        {tab.label}
+      </a>
+    ))}
+  </div>
+</nav>
+
+<slot />
+
+<footer>
+  <div class="wrapper">
+    © 2026 Pedro E. Harunari · Aix Marseille University · PhD, University of São Paulo
+  </div>
+</footer>
+
+<script is:inline>
+  /* Fade-in observer — runs on every page */
+  const obs = new IntersectionObserver(
+    es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+    { threshold: 0.05 }
+  );
+  document.querySelectorAll('.fade-in').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 70}ms`;
+    obs.observe(el);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,210 @@
+---
+import Layout from './Layout.astro';
+const { frontmatter } = Astro.props;
+const { positions = [], education = [], awards = [], selectedPubs = [], languages = [], teaching = [] } = frontmatter;
+
+const [pubPage] = await Astro.glob('../pages/publications.md');
+// Use hand-picked list from cv.md when present, otherwise fall back to all publications
+const publications: any[] = selectedPubs.length > 0
+  ? selectedPubs
+  : (pubPage?.frontmatter?.publications ?? []);
+---
+
+<Layout title="CV — Pedro E. Harunari">
+  <div class="page-content">
+    <div class="wrapper">
+      <p class="section-label fade-in">Curriculum Vitae</p>
+      <h1 class="page-title fade-in">Pedro E. Harunari</h1>
+      <div class="cv-download fade-in">
+        <a href="/academicCV.pdf" download class="btn btn-ghost" style="font-size:12px">Download full CV (PDF) ↓</a>
+      </div>
+
+      <div class="cv-grid fade-in">
+
+        <div class="cv-col">
+
+          <div class="cv-section">
+            <div class="cv-section-title">Academic Positions</div>
+            {positions.map((e: any) => (
+              <div class="cv-entry">
+                <div class="cv-years">{e.years}</div>
+                <div>
+                  <div class="cv-entry-title">{e.title}</div>
+                  <div class="cv-entry-sub">{e.institution}</div>
+                  <div class="cv-entry-sub">{e.location}</div>
+                  {e.note && <div class="cv-entry-note">{e.note}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Education</div>
+            {education.map((e: any) => (
+              <div class="cv-entry">
+                <div class="cv-years">{e.years}</div>
+                <div>
+                  <div class="cv-entry-title">{e.title}</div>
+                  <div class="cv-entry-sub">{e.institution}</div>
+                  <div class="cv-entry-sub">{e.location}</div>
+                  {e.note && <div class="cv-entry-note">{e.note}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Languages</div>
+            <div class="lang-list">
+              {languages.map((l: any) => (
+                <div class="lang-row">
+                  <span class="lang-name">{l.name}</span>
+                  <span class="lang-level">{l.level}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Interests</div>
+            <div class="tag-row">
+              <span class="tag">Stochastic Thermodynamics</span>
+              <span class="tag">Information Theory</span>
+              <span class="tag">Time series analysis</span>
+              <span class="tag">Inverse Problems</span>
+              <span class="tag">Network Theory</span>
+              <span class="tag">Python</span>
+              <span class="tag">Mathematica</span>
+              <span class="tag">Scientific Communication</span>
+              <span class="tag">Teaching</span>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Metrics</div>
+            <div class="metrics-row">
+              <div>
+                <div class="metric-num" style="color:var(--red)">{pubPage?.frontmatter?.hindex ?? '—'}</div>
+                <div class="metric-label">h-index</div>
+              </div>
+              <div>
+                <div class="metric-num" style="color:var(--blue)">{pubPage?.frontmatter?.citations ?? '—'}</div>
+                <div class="metric-label">citations</div>
+              </div>
+              <div>
+                <div class="metric-num" style="color:var(--yellow)">{pubPage?.frontmatter?.papers ?? '—'}</div>
+                <div class="metric-label">publications</div>
+              </div>
+              <div>
+                <div class="metric-num" style="color:var(--muted)">{pubPage?.frontmatter?.preprints ?? '—'}</div>
+                <div class="metric-label">preprints</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="cv-col">
+
+          <div class="cv-section">
+            <div class="cv-section-title">Selected Publications</div>
+            {publications.map((p: any) => (
+              <div class="pub-compact">
+                <div class="pub-year">
+                  {p.year}
+                  {p.annotation && <span class="badge badge-hl">{p.annotation}</span>}
+                </div>
+                <div class="pub-title">{p.title}</div>
+                <div class="pub-authors">{p.authors}</div>
+                <div class="pub-venue">{p.venue}</div>
+              </div>
+            ))}
+            <div style="margin-top:16px">
+              <a href="/publications" class="btn btn-ghost" style="font-size:11px">All publications →</a>
+            </div>
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Teaching &amp; Organisation</div>
+            {teaching.map((t: any) => (
+              <div class="cv-entry">
+                <div class="cv-years">{t.years}</div>
+                <div>
+                  <div class="cv-entry-title">{t.title}</div>
+                  <div class="cv-entry-sub">{t.sub}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="cv-section">
+            <div class="cv-section-title">Awards &amp; Grants</div>
+            {awards.map((a: any) => (
+              <div class="cv-entry">
+                <div class="cv-years">{a.year}</div>
+                <div>
+                  <div class="cv-entry-title">{a.title}</div>
+                  <div class="cv-entry-sub">{a.body}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .cv-download { margin-top: 10px; margin-bottom: 4px; }
+
+  .cv-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border: 3px solid var(--border);
+  }
+  .cv-col { padding: 36px 34px; }
+  .cv-col:first-child { border-right: 3px solid var(--border); }
+
+  .cv-section { margin-bottom: 36px; }
+  .cv-section:last-child { margin-bottom: 0; }
+  .cv-section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 0.08em;
+    margin-bottom: 16px; padding-bottom: 8px;
+    border-bottom: 2px solid var(--border);
+  }
+
+  .cv-entry { display: grid; grid-template-columns: 100px 1fr; gap: 14px; margin-bottom: 20px; align-items: start; }
+  .cv-entry:last-child { margin-bottom: 0; }
+  .cv-years { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 700; color: var(--red); letter-spacing: 0.04em; padding-top: 2px; }
+  .cv-entry-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+  .cv-entry-sub   { font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+  .cv-entry-note  { font-size: 12.5px; color: var(--muted); font-style: italic; margin-top: 2px; }
+
+  .lang-list { display: flex; flex-direction: column; gap: 8px; }
+  .lang-row  { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .lang-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .lang-name  { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; }
+  .lang-level { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .metrics-row { display: flex; gap: 36px; margin-top: 4px; }
+  .metric-num  { font-family: 'Bebas Neue', sans-serif; font-size: 50px; line-height: 1; }
+  .metric-label { font-size: 12px; color: var(--muted); font-family: 'Space Grotesk', sans-serif; }
+
+  .pub-compact { padding: 13px 0; border-bottom: 1px solid var(--border); }
+  .pub-compact:first-child { border-top: 1px solid var(--border); }
+  .pub-compact:last-child  { border-bottom: none; }
+  .pub-year    { font-size: 11px; color: var(--red); font-weight: 700; letter-spacing: 0.08em; font-family: 'Space Grotesk', sans-serif; margin-bottom: 3px; display: flex; align-items: center; gap: 8px; }
+  .pub-title   { font-size: 13.5px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; line-height: 1.35; margin-bottom: 3px; }
+  .pub-authors { font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+  .pub-venue   { font-size: 12px; color: var(--muted); font-style: italic; }
+
+  @media (max-width: 900px) {
+    .cv-grid { grid-template-columns: 1fr; }
+    .cv-col:first-child { border-right: none; border-bottom: 3px solid var(--border); }
+    .cv-col  { padding: 28px 20px; }
+  }
+</style>
