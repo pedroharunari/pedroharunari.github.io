@@ -43,7 +43,7 @@ For continuous random-variables (with decently overlapping support), I wrote an 
 
 I am a fan of initiatives like arXiv, Linux, SciPost, and Lichess.
 
-I also like the Oxford comma. LLMs made stop using em dashes.
+I also like the Oxford comma. LLMs made me stop using em dashes.
 
 ---
 
