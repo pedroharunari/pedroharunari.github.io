@@ -2,9 +2,9 @@
 layout: ../layouts/PublicationsLayout.astro
 title: Publications
 hindex: 12
-citations: 462
+citations: 494
 papers: 18
-preprints: 2
+preprints: 3
 scholarUrl: https://scholar.google.com/citations?user=2hKg80sAAAAJ&hl=pt-BR
 
 # ── How to add a new paper ──────────────────────────────────────────
@@ -12,6 +12,12 @@ scholarUrl: https://scholar.google.com/citations?user=2hKg80sAAAAJ&hl=pt-BR
 # 'authors' and 'annotation' are optional — omit if not applicable.
 # ────────────────────────────────────────────────────────────────────
 publications:
+
+  - year : 2026
+    title: Stochastic trajectories and excursions in a double quantum dot system
+    authors: G Fiusa, PE Harunari, AJB Rosal, JM Nichol, GT Landi
+    venue: "arXiv:2605.20166"
+    url: https://arxiv.org/abs/2605.20166
 
   - year: 2026
     title: Coplanarity of rooted spanning-tree vectors
