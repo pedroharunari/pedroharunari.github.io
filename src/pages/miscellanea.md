@@ -26,7 +26,7 @@ The school consisted of 10 courses lectured by different experts on the basics a
 
 At the core of information theory, time series analysis, and even thermodynamics, is the Kullback-Leibler divergence $D_\text{KL}(P \vert\vert Q)$. It measures how distinct two distributions are through their relative entropy and is used to calculate entropy production.
 
-Although important, it can be tricky to empirically compute divergences from finite data. The most natural approach would be calculating histograms for $P$ and $Q$ and directly evaluate the formula, maybe with some Kernel density estimation on top. This approach usually yield biased convergence, which can defeat the purpose: if you are looking for a lower bound, a convergence that is biased from above is a serious problem.
+Although important, it can be tricky to empirically compute divergences from finite data, especially for continuous random variables. The most natural approach would be calculating histograms for $P$ and $Q$ and directly evaluate the formula, maybe with some Kernel density estimation on top. This approach usually yield biased convergence, which can defeat the purpose: if you are looking for a lower bound, a convergence that is biased from above is a serious problem.
 
 For continuous random-variables (with decently overlapping support), I wrote an out-of-the-box code that computes Kullback-Leibler divergences based on Fernando Pérez-Cruz's paper "Kullback-Leibler Divergence Estimation of Continuous Distributions" (DOI:10.1109/ISIT.2008.4595271).
 
