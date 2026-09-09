@@ -1,10 +1,10 @@
 ---
 layout: ../layouts/PublicationsLayout.astro
 title: Publications
-hindex: 12
-citations: 510
-papers: 18
-preprints: 3
+hindex: 13
+citations: 532
+papers: 20
+preprints: 1
 scholarUrl: https://scholar.google.com/citations?user=2hKg80sAAAAJ&hl=pt-BR
 
 # ── How to add a new paper ──────────────────────────────────────────
@@ -18,24 +18,24 @@ publications:
     authors: G Fiusa, PE Harunari, AJB Rosal, JM Nichol, GT Landi
     venue: "arXiv:2605.20166"
     url: https://arxiv.org/abs/2605.20166
+    
+  - year: 2026
+    title: A framework for fluctuating times and counting observables in stochastic excursions
+    authors: G Fiusa, PE Harunari, AS Hegde, GT Landi
+    venue: Physical Review E, 114, 024129
+    url: https://arxiv.org/abs/2506.05160
+
+  - year: 2026
+    title: Counting observables in stochastic excursions
+    authors: G Fiusa, PE Harunari, AS Hegde, GT Landi
+    venue: Physical Review E, 114, L022102
+    url: https://arxiv.org/abs/2505.06208
 
   - year: 2026
     title: Coplanarity of rooted spanning-tree vectors
     authors: M Polettini, PE Harunari, S Dal Cengio, V Lecomte
     venue: Letters in Mathematical Physics, 116, 1
     url: https://arxiv.org/abs/2407.16093
-
-  - year: 2025
-    title: A framework for fluctuating times and counting observables in stochastic excursions
-    authors: G Fiusa, PE Harunari, AS Hegde, GT Landi
-    venue: "arXiv:2506.05160"
-    url: https://arxiv.org/abs/2506.05160
-
-  - year: 2025
-    title: Counting observables in stochastic excursions
-    authors: G Fiusa, PE Harunari, AS Hegde, GT Landi
-    venue: "arXiv:2505.06208"
-    url: https://arxiv.org/abs/2505.06208
 
   - year: 2025
     title: Mutual Multilinearity of Nonequilibrium Network Currents

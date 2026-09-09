@@ -4,8 +4,8 @@ title: Research
 
 vision: |
   A molecular motor stepping forward, a noisy electronic component, a cellular signaling cascade, a swarm of interacting particles, a set of chemical reactions, and a quantum-dot junction; these are all instances of stochastic systems that have been largely studied, in particular its fluctuating quantities and energetics. Using the powerful toolbox of stochastic thermodynamics, we can understand the behavior of these fluctuating nonequilibrium systems through energy dissipation, currents, thermodynamic forces and information flows across scales, from single biomolecules to emergent collective phenomena. The observation of all its degrees of freedom or the establishment of an accurate microscopic model would in principle reveal a system's complete dynamics and energy budget. Yet, we often only partially monitor such systems as a lower dimensional projection of the complete dynamics. For example, we only observe the mechanical displacement of the motor while its chemistry is hidden, and we only measure the in/out currents of the device while its internal representation is unavailable. When we cannot microscopically resolve observables, information content drops and thermodynamic quantities get scrambled.
-  
-  Inspired by what is actually measured in real experiments, I strive to develop (i) inference methods for hidden properties and thermodynamic quantities, (ii) a universal understanding of the role played by information, and (iii) fundamental relations between the available quantities. These are achieved by working at the crossroads between stochastic processes, information theory, and nonequilibrium thermodynamics, grounded by a strategic dose of application awareness.
+
+  Inspired by what is actually measured in real experiments, I strive to develop (i) inference methods for hidden properties and thermodynamic quantities, (ii) a universal understanding of the role played by information, and (iii) fundamental relations between the available quantities. Such results are stated at the level of the stochastic process or the data itself, being universally valid for any computing device or learned method. These are achieved by working at the crossroads between stochastic processes, information theory, and nonequilibrium thermodynamics, grounded by a strategic dose of application awareness.
 
 pillars:
   - icon: ♨
@@ -46,16 +46,19 @@ pillars:
       the behavior of any system that processes information, from cells to intricate chips.
       I explore thermodynamic limits of communication, and the capacity to infer models from noisy
       sparse trajectories.
+      
+      These limits are *algorithm-independent*: they constrain what any method can extract from a given dataset. Understanding such limits is a pressing problem, especially since machine learning-based methods are rapidly evolving. Much like the second law of thermodynamics, they ought to satisfy information-theoretic limits, otherwise they are hallucinating. Classical thermodynamics characterized engines without ever disassembling their intrinsic machinery, by accounting energy input and output; the same accounting can be applied to a trained model without opening the black boxes.
     questions:
       - How biological and artificial devices differ in information processing efficiency?
       - What are the signatures of hidden variables in real trajectories?
-      - How does the inference capacity scale with number of points and sampling frequency?
-      - How does measurement noise affects inference?
+      - How does measurement noise affects inference capacity?
+      - How close do machine-learning methods get to the optimum that a dataset permits?
+      - Can we flag when models report an accuracy beyond the theoretically possible?
     tags:
       - Information Theory
       - Inverse problems
       - Channel Capacity
-      - Fisher Information
+      - Limits of learning
     papers:
       - label: "In preparation."
 
