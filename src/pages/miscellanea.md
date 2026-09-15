@@ -3,6 +3,21 @@ layout: ../layouts/MiscellaneaLayout.astro
 title: Miscellanea
 ---
 
+## Marseille
+
+<div class="misc-side-by-side">
+<div class="misc-side-text">
+
+Since October 2025, I've been working in Pierre Ronceray's group. My main activity is understanding information-theoretic limits of inference based on realistic trajectories, which are sparse and noisy. In particular, I would like to quantify the optimal performance of any algorithm, which in turn will offer useful benchmarks to test against the best existing approaches, such as Pierre's own [SFI](https://stochasticforceinference.readthedocs.io/en/latest/).
+
+We are lucky enough to be based at Campus Luminy, just a 20-minute hike from some of the most unbelievable views in the South of France. This photo is from a casual lunch with the group on a random workday, taken by Stefano.
+
+</div>
+<div class="misc-side-img">
+<img src="/photo_marseille.webp" alt="Group picture" />
+</div>
+</div>
+
 ## (Post)Modern Thermodynamics
 
 <div class="misc-side-by-side">
