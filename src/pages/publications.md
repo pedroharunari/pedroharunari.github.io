@@ -2,9 +2,9 @@
 layout: ../layouts/PublicationsLayout.astro
 title: Publications
 hindex: 13
-citations: 532
+citations: 550
 papers: 20
-preprints: 1
+preprints: 3
 scholarUrl: https://scholar.google.com/citations?user=2hKg80sAAAAJ&hl=pt-BR
 
 # ── How to add a new paper ──────────────────────────────────────────
@@ -12,6 +12,18 @@ scholarUrl: https://scholar.google.com/citations?user=2hKg80sAAAAJ&hl=pt-BR
 # 'authors' and 'annotation' are optional — omit if not applicable.
 # ────────────────────────────────────────────────────────────────────
 publications:
+
+  - year : 2026
+    title : Mutual Linearity of Complexes in Chemical Reaction Networks
+    authors : PE Harunari, G Fiusa, M Polettini
+    venue : "arXiv:2610.11970"
+    url : https://arxiv.org/abs/2610.11970
+
+  - year : 2026
+    title : Thermodynamic efficiency of communication channels
+    authors : N Freitas, PE Harunari, M Esposito
+    venue : "arXiv:2609.25934"
+    url : https://arxiv.org/abs/2609.25934
 
   - year : 2026
     title: Stochastic trajectories and excursions in a double quantum dot system

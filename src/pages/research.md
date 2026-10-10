@@ -60,7 +60,8 @@ pillars:
       - Channel Capacity
       - Limits of learning
     papers:
-      - label: "In preparation."
+      - label: "Freitas, Harunari, Esposito - arXiv (2026)"
+        url: "https://arxiv.org/abs/2609.25934"
 
   - icon: ⟳
     color: yellow
