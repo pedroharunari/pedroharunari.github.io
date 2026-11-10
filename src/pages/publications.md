@@ -2,7 +2,7 @@
 layout: ../layouts/PublicationsLayout.astro
 title: Publications
 hindex: 13
-citations: 550
+citations: 568
 papers: 20
 preprints: 3
 scholarUrl: https://scholar.google.com/citations?user=2hKg80sAAAAJ&hl=pt-BR
